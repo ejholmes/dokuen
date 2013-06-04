@@ -9,11 +9,9 @@ class Dokuen::CLI < Thor
   def initialize(*args)
     super(*args)
 
-    if not options[:config].nil?
+    if options[:config]
       raise Thor::Error, "Config option not allowed over ssh" if ENV['SSH_ORIGINAL_COMMAND']
-      @config = Dokuen::Config.new(options[:config])
-    elsif !ENV['DOKUEN_CONF'].nil?
-      @config = Dokuen::Config.new(ENV['DOKUEN_CONF'])
+      Dokuen.config = Dokuen::Config.new(options[:config])
     end
   end
 

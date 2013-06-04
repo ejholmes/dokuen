@@ -7,6 +7,24 @@ module Dokuen
       @path = path
     end
 
+    def env_dir
+    end
+
+    def apps_dir
+    end
+
+    def ports_dir
+    end
+
+    def bin_dir
+    end
+
+    def repos_dir
+    end
+
+    def keys_dir
+    end
+
     def method_missing(meth, *args, &block)
       meth = meth.to_s
       if config.has_key? meth

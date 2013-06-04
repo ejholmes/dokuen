@@ -5,17 +5,25 @@ require 'time'
 
 module Dokuen
   class Application
+    extend Forwardable
+
     autoload :Environment, 'dokuen/application/environment'
+    autoload :Creator,     'dokuen/application/creator'
+    autoload :Deploy,      'dokuen/application/deploy'
 
     attr_reader :name
-    attr_reader :config
 
-    def initialize(name, config)
-      @name   = name
-      @config = config
+    def initialize(name)
+      @name = name
     end
 
-    def self.create
+    def self.create(name)
+      raise ApplicationExistsError, "Application #{name} exists!" if exists?(name)
+      Creator.create(name)
+    end
+
+    def self.exists?(name)
+      config.apps_dir.join(name).exists?
     end
 
     def env
@@ -23,6 +31,7 @@ module Dokuen
     end
 
     def deploy
+      Deploy.deploy(self)
     end
 
     def scale
@@ -41,6 +50,30 @@ module Dokuen
     end
 
     def clean
+    end
+
+  private
+    
+    def self.config
+      Dokuen.config
+    end
+
+    def config
+      self.class.config
+    end
+
+    def with(directory)
+      Dir.chdir(directory) do
+        yield
+      end
+    end
+
+    def current_release
+      app_dir.join('current').readlink
+    end
+
+    def app_dir
+      config.apps_dir.join(name)
     end
 
   end

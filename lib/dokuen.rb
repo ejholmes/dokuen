@@ -9,6 +9,16 @@ module Dokuen
   autoload :Keys,        'dokuen/keys'
   autoload :Shell,       'dokuen/shell'
 
+  ApplicationExistsError = Class.new(StandardError)
+
+  def self.config
+    @config ||= Config.new(ENV['DOKUEN_CONF'])
+  end
+
+  def self.config=(config)
+    @config = config
+  end
+
   def self.template(name, bind)
     path = File.expand_path("../../data/templates/#{name}.erb", __FILE__)
     if File.exists?(path)

@@ -1,25 +1,58 @@
 require 'spec_helper'
 
 describe Dokuen::Application do
+  let(:config) { double(Dokuen::Config) }
   let(:name) { double('name') }
-  let(:config) { double('config') }
-  subject(:application) { described_class.new(name, config) }
+  subject(:application) { described_class.new(name) }
+
+  before do
+    described_class.stub config: config
+  end
 
   describe '#new' do
     its(:name) { should eq name }
-    its(:config) { should eq config }
   end
 
   describe '#create' do
-    pending 'creates an application and returns a new instance'
+    subject { -> { described_class.create(name) } }
+
+    context 'when the application already exists' do
+      before do
+        described_class.stub exists?: true
+      end
+
+      it { should raise_error Dokuen::ApplicationExistsError }
+    end
+
+    context 'when the application does not exist' do
+      before do
+        described_class.stub :exists? => false
+        Dokuen::Application::Creator.should_receive(:create).with(name)
+      end
+
+      it { should_not raise_error }
+    end
   end
 
   describe '.env' do
-    pending 'is an instance of Application::Environment'
+    subject(:env) { -> { application.env } }
+
+    before do
+      config.stub :env_dir => double('env_dir')
+      Dokuen::Application::Environment.should_receive(:new).with(config.env_dir)
+    end
+
+    it { should_not raise_error }
   end
 
   describe '.deploy' do
-    pending 'deploys the application'
+    subject(:deploy) { -> { application.deploy } }
+
+    before do
+      Dokuen::Application::Deploy.should_receive(:deploy).with(application)
+    end
+
+    it { should_not raise_error }
   end
 
   describe '.scale' do
