@@ -1,4 +1,5 @@
 require 'yaml'
+require 'pathname'
 
 # Provides easy access to YAML configuration.
 module Dokuen
@@ -8,21 +9,31 @@ module Dokuen
     end
 
     def env_dir
+      dokuen_dir.join('env')
     end
 
     def apps_dir
+      dokuen_dir.join('apps')
     end
 
     def ports_dir
+      dokuen_dir.join('ports')
     end
 
     def bin_dir
+      dokuen_dir.join('bin')
     end
 
     def repos_dir
+      dokuen_dir.join('repos')
     end
 
     def keys_dir
+      dokuen_dir.join('keys')
+    end
+
+    def dokuen_dir
+      Pathname(config['dokuen_dir'])
     end
 
     def method_missing(meth, *args, &block)

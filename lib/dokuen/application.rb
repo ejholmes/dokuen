@@ -52,6 +52,10 @@ module Dokuen
     def clean
     end
 
+    def directory
+      config.apps_dir.join(name)
+    end
+
   private
     
     def self.config
@@ -69,11 +73,7 @@ module Dokuen
     end
 
     def current_release
-      app_dir.join('current').readlink
-    end
-
-    def app_dir
-      config.apps_dir.join(name)
+      directory.join('current').readlink
     end
 
   end

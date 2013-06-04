@@ -12,7 +12,7 @@ module Dokuen
   ApplicationExistsError = Class.new(StandardError)
 
   def self.config
-    @config ||= Config.new(ENV['DOKUEN_CONF'])
+    @config ||= Config.new(ENV['DOKUEN_CONF'] || File.expand_path('./dokuen.conf'))
   end
 
   def self.config=(config)
