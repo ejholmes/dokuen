@@ -1,6 +1,14 @@
 require "erb"
 
 module Dokuen
+  autoload :CLI,         'dokuen/cli'
+  autoload :Config,      'dokuen/config'
+  autoload :Application, 'dokuen/application'
+  autoload :Wrapper,     'dokuen/wrapper'
+  autoload :Platform,    'dokuen/platform'
+  autoload :Keys,        'dokuen/keys'
+  autoload :Shell,       'dokuen/shell'
+
   def self.template(name, bind)
     path = File.expand_path("../../data/templates/#{name}.erb", __FILE__)
     if File.exists?(path)
@@ -11,11 +19,3 @@ module Dokuen
     end
   end
 end
-
-require "dokuen/cli"
-require "dokuen/config"
-require "dokuen/application"
-require "dokuen/wrapper"
-require "dokuen/platform"
-require "dokuen/keys"
-require "dokuen/shell"

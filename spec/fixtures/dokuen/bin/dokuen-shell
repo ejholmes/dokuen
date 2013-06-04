@@ -1,0 +1,3 @@
+#!/bin/bash
+export DOKUEN_CONF=/Users/ejholmes/Source/dokuen/spec/fixtures/dokuen/dokuen.conf
+/Users/ejholmes/.rbenv/versions/1.9.3-p392/lib/ruby/gems/1.9.1/bin/dokuen-shell "$@"

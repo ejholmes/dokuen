@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/Users/ejholmes/Source/dokuen/spec/fixtures/dokuen/bin/dokuen deploy --application=$DOKUEN_APP --rev=$REV

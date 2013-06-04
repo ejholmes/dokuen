@@ -2,31 +2,33 @@ $:.push File.expand_path("../lib", __FILE__)
 
 require 'dokuen/version'
 
-Gem::Specification.new do |s|
-  s.name = 'dokuen'
-  s.version = Dokuen::VERSION
-  s.date = `date +%Y-%m-%d`
+Gem::Specification.new do |gem|
+  gem.name = 'dokuen'
+  gem.version = Dokuen::VERSION
+  gem.date = `date +%Y-%m-%d`
 
-  s.summary = 'A Personal Application Platform for Macs'
-  s.description = 'Like Heroku but Personal'
+  gem.summary = 'A Personal Application Platform for Macs'
+  gem.description = 'Like Heroku but Personal'
 
-  s.author = 'Pete Keen'
-  s.email = 'pete@bugsplat.info'
+  gem.author = 'Pete Keen'
+  gem.email = 'pete@bugsplat.info'
 
-  s.require_paths = %w< lib >
+  gem.require_paths = %w< lib >
 
-  s.bindir        = 'bin'
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- test/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  gem.bindir        = 'bin'
+  gem.files         = `git ls-files`.split("\n")
+  gem.test_files    = `git ls-files -- test/*`.split("\n")
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.require_paths = ["lib"]
 
-  s.test_files = s.files.select {|path| path =~ /^test\/.*.rb/ }
+  gem.test_files = gem.files.select {|path| path =~ /^test\/.*.rb/ }
 
-  s.add_development_dependency('rake')
-  s.add_dependency('thor')
-  s.add_dependency('mason')
-  s.add_dependency('foreman')
-  
-  s.homepage = 'https://github.com/peterkeen/dokuen'
+  gem.add_dependency 'thor'
+  gem.add_dependency 'mason',   '~> 0.1.0'
+  gem.add_dependency 'foreman', '>= 0.63.0'
+
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
+
+  gem.homepage = 'https://github.com/peterkeen/dokuen'
 end
