@@ -19,6 +19,7 @@ module Dokuen
     end
 
     def env
+      Environment.new(config.env_dir)
     end
 
     def deploy
